@@ -40,6 +40,7 @@
     "prestart": "yarn build",
     "postinstall": "npm run build",
     "prepublish": "yarn lint && yarn test && yarn clean && yarn build --project prod.tsconfig.json",
-    "start": "node dist/example/server.js"
+    "start": "node dist/example/server.js",
+    "prepare": "npm run build"
   }
 }
