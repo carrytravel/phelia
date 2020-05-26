@@ -16,4 +16,3 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./core"), exports);
 const core_1 = __importDefault(require("./core"));
 exports.default = core_1.default;
-//# sourceMappingURL=index.js.map

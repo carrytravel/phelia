@@ -520,4 +520,3 @@ exports.Home = (props) => (react_1.default.createElement("component", Object.ass
         };
         return instance;
     } })));
-//# sourceMappingURL=components.js.map

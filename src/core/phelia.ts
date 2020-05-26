@@ -99,7 +99,7 @@ export class Phelia {
     message: PheliaMessage<p>,
     channel: string,
     user: string,
-    props: p = null,
+    props: p = null
   ): Promise<string> {
     const initializedState: { [key: string]: any } = {};
 
@@ -219,6 +219,7 @@ export class Phelia {
   }
 
   async updateHome(key: string) {
+    console.log("phelia: updateHome", key);
     const rawMessageContainer = await Phelia.Storage.get(key);
     if (!rawMessageContainer) {
       throw TypeError(`Could not find a home app with key ${key}.`);
@@ -309,6 +310,7 @@ export class Phelia {
         );
       }
 
+      console.log("phelia: appHomeHandler", messageKey, payload);
       const rawMessageContainer = await Phelia.Storage.get(messageKey);
 
       if (!rawMessageContainer) {
@@ -443,6 +445,7 @@ export class Phelia {
 
   async processAction(payload: any) {
     const messageKey = parseMessageKey(payload);
+    console.log("phelia: processAction key", messageKey);
 
     const rawMessageContainer = await Phelia.Storage.get(messageKey);
 

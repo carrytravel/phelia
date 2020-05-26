@@ -8,7 +8,7 @@ import {
   PheliaMessageMetadata,
   SelectDateEvent,
   SelectOptionEvent,
-  SlackUser
+  SlackUser,
 } from "./interfaces";
 
 /** Convert an action to an event. */
@@ -31,7 +31,7 @@ export function generateEvent(
   ) {
     return {
       selected: action.selected_options.map((option: any) => option.value),
-      user
+      user,
     };
   }
 
@@ -81,13 +81,17 @@ export function parseMessageKey(payload: any) {
     const { channel_id, message_ts, view_id, type } = payload.container;
     return type === "view" ? view_id : `${channel_id}:${message_ts}`;
   }
+
+  if (payload.type === "app_home_opened" && payload.tab === "home") {
+    return payload.user;
+  }
 }
 
 /** Transform a message into message metadata */
 export function loadMessagesFromArray(
   messages: PheliaMessage[]
 ): PheliaMessageMetadata[] {
-  return messages.map(message => ({ message, name: message.name }));
+  return messages.map((message) => ({ message, name: message.name }));
 }
 
 /** Read messages from a directory */
@@ -96,15 +100,15 @@ export function loadMessagesFromDirectory(
 ): PheliaMessageMetadata[] {
   const modules = new Array();
 
-  fs.readdirSync(dir).forEach(file => {
+  fs.readdirSync(dir).forEach((file) => {
     try {
       const module = require(path.join(dir, file));
       modules.push(module);
     } catch (error) {}
   });
 
-  return modules.map(m => ({
+  return modules.map((m) => ({
     message: m.default,
-    name: m.default.name
+    name: m.default.name,
   }));
 }

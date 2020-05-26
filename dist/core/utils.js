@@ -16,7 +16,7 @@ function generateEvent(action, user) {
         action.type === "multi_external_select") {
         return {
             selected: action.selected_options.map((option) => option.value),
-            user
+            user,
         };
     }
     if (action.type === "multi_users_select") {
@@ -56,27 +56,29 @@ function parseMessageKey(payload) {
         const { channel_id, message_ts, view_id, type } = payload.container;
         return type === "view" ? view_id : `${channel_id}:${message_ts}`;
     }
+    if (payload.type === "app_home_opened" && payload.tab === "home") {
+        return payload.user;
+    }
 }
 exports.parseMessageKey = parseMessageKey;
 /** Transform a message into message metadata */
 function loadMessagesFromArray(messages) {
-    return messages.map(message => ({ message, name: message.name }));
+    return messages.map((message) => ({ message, name: message.name }));
 }
 exports.loadMessagesFromArray = loadMessagesFromArray;
 /** Read messages from a directory */
 function loadMessagesFromDirectory(dir) {
     const modules = new Array();
-    fs_1.default.readdirSync(dir).forEach(file => {
+    fs_1.default.readdirSync(dir).forEach((file) => {
         try {
             const module = require(path_1.default.join(dir, file));
             modules.push(module);
         }
         catch (error) { }
     });
-    return modules.map(m => ({
+    return modules.map((m) => ({
         message: m.default,
-        name: m.default.name
+        name: m.default.name,
     }));
 }
 exports.loadMessagesFromDirectory = loadMessagesFromDirectory;
-//# sourceMappingURL=utils.js.map

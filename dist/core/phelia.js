@@ -153,6 +153,7 @@ let Phelia = /** @class */ (() => {
         }
         updateHome(key) {
             return __awaiter(this, void 0, void 0, function* () {
+                console.log("phelia: updateHome", key);
                 const rawMessageContainer = yield Phelia.Storage.get(key);
                 if (!rawMessageContainer) {
                     throw TypeError(`Could not find a home app with key ${key}.`);
@@ -218,6 +219,7 @@ let Phelia = /** @class */ (() => {
                 catch (error) {
                     console.warn("Could not retrieve User's information, only 'user.id' is available for Home App. Oauth scope 'users:read' is required.");
                 }
+                console.log("phelia: appHomeHandler", messageKey, payload);
                 const rawMessageContainer = yield Phelia.Storage.get(messageKey);
                 if (!rawMessageContainer) {
                     const initializedState = {};
@@ -315,6 +317,7 @@ let Phelia = /** @class */ (() => {
         processAction(payload) {
             return __awaiter(this, void 0, void 0, function* () {
                 const messageKey = utils_1.parseMessageKey(payload);
+                console.log("phelia: processAction key", messageKey);
                 const rawMessageContainer = yield Phelia.Storage.get(messageKey);
                 if (!rawMessageContainer) {
                     throw new Error(`Could not find Message Container with key ${messageKey} in storage.`);
@@ -587,4 +590,3 @@ let Phelia = /** @class */ (() => {
     return Phelia;
 })();
 exports.Phelia = Phelia;
-//# sourceMappingURL=phelia.js.map

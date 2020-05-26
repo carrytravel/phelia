@@ -15,4 +15,3 @@ exports.default = phelia_1.Phelia;
 __exportStar(require("./components"), exports);
 __exportStar(require("./reconciler"), exports);
 __exportStar(require("./interfaces"), exports);
-//# sourceMappingURL=index.js.map
